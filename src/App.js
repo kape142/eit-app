@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Tab from "./Tab";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  tabs = ["Electricity", "Water", "Gas", "Budgeting"];
+  constructor(props) {
+    super(props);
+    const data = {
+      Electricity: this.generateData(15,0,300),
+      Water: this.generateData(15,0,300),
+      Gas: this.generateData(15,0,300),
+      Budgeting: this.generateData(15,0,300),
+    }
+    console.log(data);
+
+    this.state = {
+      activeTab: 0,
+      data
+    }
+  }
+
+  generateData(datapoints, min, max){
+    let data = [];
+    for(let i = 0; i < datapoints; i++){
+      data.push(min + Math.random()*(max-min))
+    }
+    return data;
+  }
+
+
+
+  render(){
+    return (
+        <div className="App">
+          <Tab name={this.tabs[this.state.activeTab]} data={this.state.data[this.tabs[this.state.activeTab]]}/>
+          {this.tabs.map((a,i)=><button key={i} onClick={()=>this.setState({activeTab: i})}>{a}</button>)}
+        </div>
+    );
+  }
 }
 
 export default App;
