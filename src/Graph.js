@@ -32,13 +32,18 @@ class Graph extends React.Component{
 
         ctx.moveTo(0,0);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        console.log("clear", data);
         const max = this.props.width?this.props.width:300;
         const points = data.length;
         const spacing = max/points;
+
         ctx.beginPath();
+        ctx.fillStyle = "#ffc965";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.linewidth = 2;
+        ctx.strokeStyle = "black";
         for(let i = 0; i < points-1; i++){
-            console.log(i, data[i], i* spacing);
             ctx.moveTo(i*spacing,data[i]);
             ctx.lineTo((i+1)*spacing,data[i+1]);
         }

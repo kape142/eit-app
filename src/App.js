@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Tab from "./Tab";
+import TabButton from "./TabButton";
 
 class App extends React.Component{
   tabs = ["Electricity", "Water", "Gas", "Budgeting"];
@@ -34,7 +35,9 @@ class App extends React.Component{
     return (
         <div className="App">
           <Tab name={this.tabs[this.state.activeTab]} data={this.state.data[this.tabs[this.state.activeTab]]}/>
-          {this.tabs.map((a,i)=><button key={i} onClick={()=>this.setState({activeTab: i})}>{a}</button>)}
+          <div className="tab-button-list">
+            {this.tabs.map((a,i)=><TabButton key={i} name={a} onClick={()=>this.setState({activeTab: i})}>{a}</TabButton>)}
+          </div>
         </div>
     );
   }
