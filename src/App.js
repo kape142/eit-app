@@ -39,8 +39,8 @@ class App extends React.Component{
 
   renderMainTab(){
     switch(this.state.activeTab){
-      case 0: return <Tab tabs={["Electricity", "Water", "Gas", "Budgeting"]} data={this.state.data}/>;
-      case 1: return <Tab tabs={["Electricity", "Water", "Gas", "Budgeting"]} data={this.state.data} avgData = {this.state.avgData}/>;
+      case 0: return <Tab name={this.tabs[this.state.activeTab]} tabs={["Electricity", "Water", "Gas", "Budgeting"]} data={this.state.data}/>;
+      case 1: return <Tab name={this.tabs[this.state.activeTab]} tabs={["Electricity", "Water", "Gas", "Budgeting"]} data={this.state.data} avgData = {this.state.avgData}/>;
       default: return null
     }
   }
