@@ -7,8 +7,18 @@
   bottom:0;
 }
 
+.graph-button-list{
+  position: relative;
+  top:0;
+}
+
+.graph-button-list .tab-button{
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
 .tab-button{
-  font-size: 1.1em;
+  font-size: 0.9em;
   display: inline-block;
   color: black;
   height: 8vh;
@@ -21,4 +31,8 @@
 
 .tab-button:last-child{
   border: 0;
+}
+
+.graph-button-list .tab-button:last-child{
+  border: 1px solid grey;
 }

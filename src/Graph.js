@@ -23,30 +23,38 @@ class Graph extends React.Component{
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.draw(this.props.data)
+        this.clear()
+        this.draw(this.props.data, "black")
+        if(this.props.avgData){
+            this.draw(this.props.avgData, "red")
+        }
     }
 
-    draw(data){
+    draw(data, color){
         const canvas = this.canvasRef.current;
         const ctx = this.state.ctx;
-
-        ctx.moveTo(0,0);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         const max = this.props.width?this.props.width:300;
         const points = data.length;
         const spacing = max/points;
 
         ctx.beginPath();
-        ctx.fillStyle = "#ffc965";
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.stroke();
-        ctx.beginPath();
         ctx.linewidth = 2;
-        ctx.strokeStyle = "black";
+        ctx.strokeStyle = color;
         for(let i = 0; i < points-1; i++){
             ctx.moveTo(i*spacing,data[i]);
             ctx.lineTo((i+1)*spacing,data[i+1]);
         }
+        ctx.stroke();
+    }
+
+    clear(){
+        const canvas = this.canvasRef.current;
+        const ctx = this.state.ctx;
+        ctx.moveTo(0,0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.fillStyle = "#ffc965";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.stroke();
     }
 

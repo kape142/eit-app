@@ -1,13 +1,20 @@
 import React from 'react';
 import './App.css';
-import Tab from "./Tab";
 import TabButton from "./TabButton";
+import Tab from "./Tab";
 
 class App extends React.Component{
-  tabs = ["Electricity", "Water", "Gas", "Budgeting"];
+  tabs = ["Consumption", "Compare", "Price", "Contact"];
   constructor(props) {
     super(props);
     const data = {
+      Electricity: this.generateData(15,0,300),
+      Water: this.generateData(15,0,300),
+      Gas: this.generateData(15,0,300),
+      Budgeting: this.generateData(15,0,300),
+    }
+
+    const avgData = {
       Electricity: this.generateData(15,0,300),
       Water: this.generateData(15,0,300),
       Gas: this.generateData(15,0,300),
@@ -17,16 +24,25 @@ class App extends React.Component{
 
     this.state = {
       activeTab: 0,
-      data
+      data,
+      avgData
     }
   }
 
   generateData(datapoints, min, max){
     let data = [];
     for(let i = 0; i < datapoints; i++){
-      data.push(min + Math.random()*(max-min))
+      data.push((i/datapoints)*(min + Math.random()*(max-min)))
     }
     return data;
+  }
+
+  renderMainTab(){
+    switch(this.state.activeTab){
+      case 0: return <Tab tabs={["Electricity", "Water", "Gas", "Budgeting"]} data={this.state.data}/>;
+      case 1: return <Tab tabs={["Electricity", "Water", "Gas", "Budgeting"]} data={this.state.data} avgData = {this.state.avgData}/>;
+      default: return null
+    }
   }
 
 
@@ -34,7 +50,7 @@ class App extends React.Component{
   render(){
     return (
         <div className="App">
-          <Tab name={this.tabs[this.state.activeTab]} data={this.state.data[this.tabs[this.state.activeTab]]}/>
+          {this.renderMainTab()}
           <div className="tab-button-list">
             {this.tabs.map((a,i)=><TabButton key={i} name={a} onClick={()=>this.setState({activeTab: i})}>{a}</TabButton>)}
           </div>
